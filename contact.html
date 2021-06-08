@@ -11,6 +11,21 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css"
     type="text/css" />
   <link rel="stylesheet" href="assets/css/style.css">
+  <!-- 1*) Email API: The following script are supplied by the EmailJS API -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+  <!-- 2*) Email API: Enter your user id received from EmailJS -->
+  <script type="text/javascript">
+    (function () {
+      // This info adds the user id to the EmailJS API
+      emailjs.init("user_McNw4TEssPpdgLkxbH3xi");
+      // This info is our template test for the EmailJS API
+      // emailjs.send("service_kh69pes", "rosie", {
+      //   name: "Aaron",
+      //   notes: "The project that I want is..."
+      // })
+      // You will receive an email after saving this file or after you reload the page!
+    })();
+  </script>
   <title>Rosie</title>
 </head>
 
@@ -65,7 +80,11 @@
         <h5 class="uppercase text-center">Let's work together!</h5>
 
         <div class="center-form">
-          <form>
+          <!-- 3*) Email API: Adding onsubmit attribute to <form> element 
+          so that when form is submitted, the sendMail() function 
+          will be invoked. We add the keyword this as parameter,
+          which refers to this form below AND add the method of POST -->
+          <form onsubmit="return sendMail(this);" method="POST">
             <input type="text" name="name" id="fullname" class="form-control" placeholder="Name" required />
             <input type="email" name="email" id="emailaddress" class="form-control" placeholder="Email" required />
             <textarea rows="5" name="projectsummary" id="projectsummary" class="form-control"
@@ -144,6 +163,9 @@
       </div>
     </div>
   </footer>
+  <!-- 4*) Email API: Here we add our external js file -->
+  <script src="assets/js/sendEmail.js"></script>
+  <!-- 5*) Email API: See step 5 in sendEmail.js -->
 </body>
 
 </html>
