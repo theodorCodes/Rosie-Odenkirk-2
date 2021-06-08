@@ -72,6 +72,14 @@ function repoInformationHTML(repos) {
 // funtion called by oninput in HTML file with an argument of event 
 function fetchGitHubInformation(event) {
 
+  // 4*) 
+  // Here we fix the issue of displaying previous content 
+  // Each time the function is called it clears
+  // the content for both gh-user-data and gh-repo-data
+  // and set it to an empty string
+  $("#gh-user-data").html("");
+  $("#gh-repo-data").html("");
+
   // Using a jQuery statements
   // to store the value of 
   // #gh-usernmae in variable username
@@ -140,3 +148,8 @@ function fetchGitHubInformation(event) {
     }
   );
 }
+
+// 5*) 
+// Here we are going to place the octocat
+// as default profile when the page is loaded
+$(document).ready(fetchGitHubInformation);
