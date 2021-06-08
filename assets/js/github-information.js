@@ -135,6 +135,22 @@ function fetchGitHubInformation(event) {
         // then set the gh-user-data HTML content to `<h2>...</h2>`
         $("#gh-user-data").html(
           `<h2>No info found for user ${username}</h2>`);
+
+      // Here when response is 403 (forbidden, access denied)
+      // GitHub request limit kicks in without an proper error message  
+      } else if (errorResponse.status === 403) {
+          // here we write our own error response text
+          // and save the getResponseHeader with the name of X-RateLimit-Reset 
+          // which is provided by GitHub with the information when the 
+          // quota will be lifted so that we can use the API again
+          // as the quota is not very human friendly (UNIX timestamp) 
+          // we have to multiply the number by 1000 and make it a new 'Date' object
+          var resetTime = new Date(errorResponse.getResponseHeader('X-RateLimit-Reset') * 1000);
+          // then we pass this to our gh-user-data element for display
+          // using the .toLocaleTimeString which takes your local information
+          // to present time in your local time
+          $("#gh-user-data").html(`<h4>Too many requests, please wait until ${resetTime.toLocaleTimeString()}</h4>`);
+
       } else {
         // all other non 404 error responses
         // log error to the console
